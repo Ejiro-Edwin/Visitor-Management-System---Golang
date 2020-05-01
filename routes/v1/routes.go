@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"../../config/responses"
+	employeecontoller "../../controllers/v1/employees"
 	visitorscontoller "../../controllers/v1/visitors"
 	visitscontroller "../../controllers/v1/visits"
 	httplib "../../libs/http"
@@ -41,5 +42,16 @@ func Router() *mux.Router {
 	visitorsRoute.HandleFunc("/{visitorEmail}", visitorscontoller.UpdateVistorDetials).Methods("PUT")
 	visitorsRoute.HandleFunc("/{visitorEmail}", visitorscontoller.UploadImage).Methods("POST")
 	visitorsRoute.HandleFunc("/{visitorEmail}", visitorscontoller.DeleteVistor).Methods("DELETE")
+
+	//************************
+	// EMPLOYEE  ROUTES
+	//************************
+	employeeRoute := route.PathPrefix("/v1/employee").Subrouter()
+	employeeRoute.HandleFunc("", employeecontoller.RegisterEmployee).Methods("POST")
+	employeeRoute.HandleFunc("/{employeeEmail}", employeecontoller.GetEmployeeDetails).Methods("GET")
+	employeeRoute.HandleFunc("/{employeeEmail}", employeecontoller.UpdateEmployeeDetails).Methods("PUT")
+	employeeRoute.HandleFunc("/{employeeEmail}", employeecontoller.UploadImage).Methods("POST")
+	employeeRoute.HandleFunc("/{employeeEmail}", employeecontoller.DeleteEmployee).Methods("DELETE")
+
 	return route
 }

@@ -45,5 +45,5 @@ func main() {
 	})
 	log.Printf("server running at %s", port)
 
-	// http.ListenAndServe(":"+port, c.Handler(routes.Router()))
+	http.ListenAndServe(":"+port, c.Handler(routes.Router()))
 }
